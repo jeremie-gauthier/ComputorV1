@@ -4,7 +4,7 @@ import re
 
 def sanitize_entry(arg):
     proper_arg = arg.strip()
-    check_pattern = r"((\d*\.?\d*\s*\*\s*[Xx]\^[0-2])(\s*([\-\+\*\/]|\=)\s*)?)"
+    check_pattern = r"((\d*\.?\d+\s*\*\s*[Xx]\^[0-2])(\s*([\-\+\*\/]|\=)\s*)?)"
     if re.match(check_pattern, proper_arg) is None:
         return None
     if proper_arg.count("=") != 1:
@@ -13,13 +13,21 @@ def sanitize_entry(arg):
 
 
 def parse_equation(equation):
-    pattern_numbers = r"\d*\.?\d*\s*\*\s*[Xx]\^[0-2]"
-    left = re.findall(pattern_numbers, equation[0])
-    right = re.findall(pattern_numbers, equation[1])
-    pattern_number = r"\d*\.?\d"
+    def find_nb(elem):
+        nb = float(re.search(pattern_number, elem).group())
+        return -nb if elem[0] == "-" else nb
+
+    pattern_numbers = (
+        r"(-\s)?-\s*\d*\.?\d+\s*\*\s*[Xx]\^[0-2]|\d*\.?\d+\s*\*\s*[Xx]\^[0-2]"
+    )
+    left_matches = re.finditer(pattern_numbers, equation[0])
+    left = [match.group() for _, match in enumerate(left_matches, start=1)]
+    right_matches = re.finditer(pattern_numbers, equation[1])
+    right = [match.group() for _, match in enumerate(right_matches, start=1)]
+    pattern_number = r"\d*\.?\d+"
     return {
-        "left": [float(re.search(pattern_number, nb).group()) for nb in left],
-        "right": [float(re.search(pattern_number, nb).group()) for nb in right],
+        "left": [find_nb(elem) for elem in left],
+        "right": [find_nb(elem) for elem in right],
     }
 
 
@@ -31,21 +39,24 @@ def solve_equation(numbers):
 
     # b^2 - 4ac
     def get_delta():
-        left = numbers["left"]
-        return (left[1] ** 2) - (4 * left[2] * left[0])
+        return b ** 2 - 4 * a * c
 
     put_terms_to_left()
+    a, b, c = numbers["left"][::-1]
     delta = get_delta()
-    print(delta)
-    # No solution
     if delta < 0:
+        print("Discriminant is strictly negative, there is no solution")
         return None
-    # -b/2a
     elif delta == 0:
-        return -numbers["left"][1] / 2 * numbers["left"][2]
-    # (-b - sqrt(delta)) / 2a AND (-b + sqrt(delta)) / 2a
+        s = -b / 2 * a
+        print("Discriminant is equal to zero, the only solution is:")
+        print(s)
+        return s
     else:
-        pass
+        s1, s2 = ((-b - delta ** 0.5) / (2 * a), (-b + delta ** 0.5) / (2 * a))
+        print("Discriminant is strictly positive, the two solutions are:")
+        print(f"S1 = {s1: .6f}\nS2 = {s2: .6f}")
+        return (s1, s2)
 
 
 def main(arg):
@@ -55,7 +66,7 @@ def main(arg):
         sys.exit(-1)
     equation = re.split(r"\s*=\s*", proper_arg)
     numbers = parse_equation(equation)
-    solve_equation(numbers)
+    result = solve_equation(numbers)
 
 
 if __name__ == "__main__":
@@ -65,11 +76,3 @@ if __name__ == "__main__":
     else:
         print("[-] Arguments error\nExit", file=sys.stderr)
         sys.exit(-1)
-
-# Regex for "n * X^p"
-# \d*\.?\d*\s*\*\s*[Xx]\^[0-2]
-
-# Regex for integrity - combine with a count of '=' (must have only one)
-# ((\d*\.?\d*\s*\*\s*[Xx]\^[0-2])(\s*([\-\+\*\/]|\=)\s*)?)
-# 1. split le '='
-# 2. strim whitespaces
