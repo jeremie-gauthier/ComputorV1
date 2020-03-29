@@ -9,9 +9,9 @@ def get_polynomial_degree(func):
         degree = int(max(pows, key=lambda p: int(p)))
         print(f"Polynomial degree: {degree}")
         if degree > 2:
-            raise Exception(
-                "The polynomial degree is stricly greater than 2, I can't solve."
-            )
+            raise Exception("Can't solve polynomials greater than 2nd degree.")
+        elif degree == 0:
+            raise Exception("This is not a polynomial, just an equality.")
         return func(equation, degree)
 
     return max_degree
