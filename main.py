@@ -9,7 +9,6 @@ def main(arg):
         numbers = parser(arg)()
         result = solver(numbers)
         return 0
-
     except Exception as e:
         print(f"[-] {e}", file=sys.stderr)
         return -1
