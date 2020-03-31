@@ -13,7 +13,7 @@ def verbose_solution(func):
             message = "Discriminant is strictly negative, there is no solution"
         elif s["delta"] == 0:
             message = f"Discriminant is equal to zero, the only solution is:\n\
-                {s['result']}"
+                \r{s['result']}"
 
         else:
             message = f"Discriminant is strictly positive, the two solutions are:\n\
