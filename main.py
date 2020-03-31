@@ -4,10 +4,14 @@ from parse_expr import *
 from solver import *
 
 
-def main(arg):
+@sanitizer
+def main(equation):
     try:
-        numbers = parser(arg)()
-        result = solver(numbers)
+        degree = get_polynomial_degree(equation)
+        print(f"Polynomial degree: {degree}")
+        split_eq = split_equality(equation)
+        coefs = map(lambda eq: parser(eq)(degree), split_eq)
+        result = solver(coefs)
         return 0
     except Exception as e:
         print(f"[-] {e}", file=sys.stderr)

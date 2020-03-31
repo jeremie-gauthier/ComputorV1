@@ -2,30 +2,22 @@ import re
 from sanitizer import *
 
 
-def get_polynomial_degree(func):
-    def max_degree(equation):
-        pattern_pow = r"(?<=X\^)\d*"
-        pows = re.findall(pattern_pow, equation)
-        degree = int(max(pows, key=lambda p: int(p)))
-        print(f"Polynomial degree: {degree}")
-        if degree > 2:
-            raise Exception("Can't solve polynomials greater than 2nd degree.")
-        elif degree == 0:
-            raise Exception("This is not a polynomial, just an equality.")
-        return func(equation, degree)
-
-    return max_degree
+def get_polynomial_degree(equation):
+    pattern_pow = r"(?<=X\^)\d*"
+    pows = re.findall(pattern_pow, equation)
+    degree = int(max(pows, key=lambda p: int(p)))
+    if degree > 2:
+        raise Exception("Can't solve polynomials greater than 2nd degree.")
+    elif degree == 0:
+        raise Exception("This is not a polynomial, just an equality.")
+    return degree
 
 
-@sanitizer
-@get_polynomial_degree
-def parser(equation, degree):
-    def get_part():
-        parts = re.split(r"\s*=\s*", equation)
-        for part in parts:
-            yield part
-        yield None
+def split_equality(equation):
+    return re.split(r"\s*=\s*", equation)
 
+
+def parser(equation):
     def find_nb(elem):
         nb = float(re.search(r"\d*\.?\d+", elem).group())
         return -nb if elem[0] == "-" else nb
@@ -34,20 +26,16 @@ def parser(equation, degree):
         power = re.search(r"(?<=X\^)\d*", elem).group()
         return int(power)
 
-    def get_numbers():
-        pattern_nb = r"\d+(\.\d+)?\s*\*\s*[Xx]\^\d+"
-        pattern_numbers = fr"(-\s*)?{pattern_nb}"
-        parts = get_part()
-        part = next(parts)
-        numbers = ()
-        while part:
-            matches = re.finditer(pattern_numbers, part)
-            matched_values = [match.group() for _, match in enumerate(matches, start=1)]
-            part_numbers = [0.0 for p in range(degree + 1)]
-            for nb in matched_values:
-                part_numbers[find_pow(nb)] += find_nb(nb)
-            numbers = (*numbers, part_numbers)
-            part = next(parts)
-        return numbers
+    def list_of_zeros(degree):
+        return [0.0] * (degree + 1)
 
-    return get_numbers
+    def extract_coef(degree):
+        pattern_coef = r"(-\s*)?\d+(\.\d+)?\s*\*\s*[Xx]\^\d+"
+        matches = re.finditer(pattern_coef, equation)
+        values = map(lambda m: m.group(), matches)
+        coefs = list_of_zeros(degree)
+        for nb in values:
+            coefs[find_pow(nb)] += find_nb(nb)
+        return coefs
+
+    return extract_coef
