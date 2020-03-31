@@ -6,24 +6,25 @@ def expr_reducer(func):
     return reduce_form
 
 
-def print_solution(func):
-    def printer(*args, **kwargs):
+def verbose_solution(func):
+    def messenger(*args, **kwargs):
         s = func(*args, **kwargs)()
         if s["delta"] < 0:
-            print("Discriminant is strictly negative, there is no solution")
+            message = "Discriminant is strictly negative, there is no solution"
         elif s["delta"] == 0:
-            print("Discriminant is equal to zero, the only solution is:")
-            print(s["result"])
-        else:
-            print("Discriminant is strictly positive, the two solutions are:")
-            print(f"S1 = {s['result'][0]: .6f}\nS2 = {s['result'][1]: .6f}")
-        return s
+            message = f"Discriminant is equal to zero, the only solution is:\n\
+                {s['result']}"
 
-    return printer
+        else:
+            message = f"Discriminant is strictly positive, the two solutions are:\n\
+                    \rS1 = {s['result'][0]: .6f}\nS2 = {s['result'][1]: .6f}"
+        return {**s, "message": message}
+
+    return messenger
 
 
 @expr_reducer
-@print_solution
+@verbose_solution
 def solver(coefs):
     def get_delta(a, b, c):
         return b ** 2 - 4 * a * c
