@@ -5,7 +5,7 @@ from solver import *
 from verbose import *
 
 
-def main(arg: str):
+def main(arg: str) -> int:
     try:
         equation = sanitize_entry(arg)
         degree = get_polynomial_degree(equation)

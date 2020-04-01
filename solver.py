@@ -8,10 +8,10 @@ def expr_reducer(coefs: map) -> List[float]:
 
 
 def solver(coefs: List[float]) -> dict:
-    def get_delta(a, b, c):
+    def get_delta(a: float, b: float, c: float) -> float:
         return b ** 2 - 4 * a * c
 
-    def second_degree():
+    def second_degree() -> dict:
         c, b, a = coefs
         delta = get_delta(a, b, c)
         if delta < 0:
