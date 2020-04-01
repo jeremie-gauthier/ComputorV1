@@ -5,15 +5,14 @@ from solver import *
 
 
 @sanitizer
-def main(equation):
+def main(equation: str):
     try:
         degree = get_polynomial_degree(equation)
         split_eq = split_equality(equation)
-        coefs = map(lambda eq: parser(eq)(degree), split_eq)
+        coefs = map(lambda eq: parser(eq)(degree["value"]), split_eq)
         result = solver(coefs)
 
-        print(f"Polynomial degree: {degree}")
-        print(result["message"])
+        print("\n".join((degree["message"], result["reduced_form"], result["message"])))
 
         return 0
     except Exception as e:

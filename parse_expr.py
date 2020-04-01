@@ -1,8 +1,9 @@
+from typing import List
 import re
 from sanitizer import *
 
 
-def get_polynomial_degree(equation):
+def get_polynomial_degree(equation: str) -> dict:
     pattern_pow = r"(?<=X\^)\d*"
     pows = re.findall(pattern_pow, equation)
     degree = int(max(pows, key=lambda p: int(p)))
@@ -10,26 +11,26 @@ def get_polynomial_degree(equation):
         raise Exception("Can't solve polynomials greater than 2nd degree.")
     elif degree == 0:
         raise Exception("This is not a polynomial, just an equality.")
-    return degree
+    return {"value": degree, "message": f"Polynomial degree: {degree}"}
 
 
-def split_equality(equation):
+def split_equality(equation: str) -> List[str]:
     return re.split(r"\s*=\s*", equation)
 
 
-def parser(equation):
-    def find_nb(elem):
+def parser(equation: str):
+    def find_nb(elem: str) -> float:
         nb = float(re.search(r"\d*\.?\d+", elem).group())
         return -nb if elem[0] == "-" else nb
 
-    def find_pow(elem):
+    def find_pow(elem: str) -> int:
         power = re.search(r"(?<=X\^)\d*", elem).group()
         return int(power)
 
-    def list_of_zeros(degree):
+    def list_of_zeros(degree: int) -> List[float]:
         return [0.0] * (degree + 1)
 
-    def extract_coef(degree):
+    def extract_coef(degree: str) -> List[float]:
         pattern_coef = r"(-\s*)?\d+(\.\d+)?\s*\*\s*[Xx]\^\d+"
         matches = re.finditer(pattern_coef, equation)
         values = map(lambda m: m.group(), matches)

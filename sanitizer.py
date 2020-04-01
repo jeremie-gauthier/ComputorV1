@@ -1,8 +1,9 @@
+from typing import Callable, Any
 import re
 
 
-def sanitizer(func):
-    def sanitize_entry(entry):
+def sanitizer(func: Callable[..., Any]):
+    def sanitize_entry(entry: str) -> Any:
         sanitized_entry = entry.strip()
 
         real = r"\d+(\.\d+)?"

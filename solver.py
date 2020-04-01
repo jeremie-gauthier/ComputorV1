@@ -1,12 +1,35 @@
-def expr_reducer(func):
-    def reduce_form(coefs):
-        reduced = map(sum, zip(*coefs))
-        return func(reduced)
+from typing import Callable, Any, List
+import re
+
+
+def expr_reducer(func: Callable[..., Any]):
+    def stringify_reduced_form(reduced: list) -> str:
+        string_reduced = " + ".join(
+            ["X^".join((val, str(idx))) for idx, val in enumerate(map(str, reduced))]
+        )
+
+        # Reduce even more
+        replacements = [
+            (r"\+ -", "- "),
+            (r"\.0 ", " "),
+            (r"\.0X", "X"),
+            (r"\^1|X\^0", ""),
+        ]
+        for old, new in replacements:
+            string_reduced = re.sub(old, new, string_reduced)
+
+        return f"Reduced form: {string_reduced} = 0"
+
+    def reduce_form(coefs: list) -> dict:
+        reduced = list(map(sum, zip(*coefs)))
+        s = func(reduced)
+        string_reduced = stringify_reduced_form(reduced)
+        return {**s, "reduced_form": string_reduced}
 
     return reduce_form
 
 
-def verbose_solution(func):
+def verbose_solution(func: Callable[..., Any]) -> dict:
     def messenger(*args, **kwargs):
         s = func(*args, **kwargs)()
         if s["delta"] < 0:
@@ -25,7 +48,7 @@ def verbose_solution(func):
 
 @expr_reducer
 @verbose_solution
-def solver(coefs):
+def solver(coefs: List[float]) -> dict:
     def get_delta(a, b, c):
         return b ** 2 - 4 * a * c
 
