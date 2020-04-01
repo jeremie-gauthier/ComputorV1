@@ -12,19 +12,16 @@ def main(arg: str):
         split_eq = split_equality(equation)
         coefs = map(lambda eq: parser(eq, degree), split_eq)
         reduced_form = expr_reducer(coefs)
-
         delta, result = solver(reduced_form).values()
-
         print(
             "\n".join(
                 (
-                    vb_degree(degree),
                     vb_reduced_form(reduced_form),
+                    vb_degree(degree),
                     vb_result(delta, result),
                 )
             )
         )
-
         return 0
     except Exception as e:
         print(f"[-] {e}", file=sys.stderr)
