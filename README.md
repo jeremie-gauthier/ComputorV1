@@ -1,5 +1,4 @@
-# ComputorV1
-**Polynomial equation solver**
+# Polynomial equation solver
 
 **Format accepted:**
 
