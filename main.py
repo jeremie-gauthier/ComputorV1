@@ -2,17 +2,28 @@ import sys
 import re
 from parse_expr import *
 from solver import *
+from verbose import *
 
 
-@sanitizer
-def main(equation: str):
+def main(arg: str):
     try:
+        equation = sanitize_entry(arg)
         degree = get_polynomial_degree(equation)
         split_eq = split_equality(equation)
-        coefs = map(lambda eq: parser(eq)(degree["value"]), split_eq)
-        result = solver(coefs)
+        coefs = map(lambda eq: parser(eq, degree), split_eq)
+        reduced_form = expr_reducer(coefs)
 
-        print("\n".join((degree["message"], result["reduced_form"], result["message"])))
+        delta, result = solver(reduced_form).values()
+
+        print(
+            "\n".join(
+                (
+                    vb_degree(degree),
+                    vb_reduced_form(reduced_form),
+                    vb_result(delta, result),
+                )
+            )
+        )
 
         return 0
     except Exception as e:

@@ -1,53 +1,11 @@
-from typing import Callable, Any, List
+from typing import List
 import re
 
 
-def expr_reducer(func: Callable[..., Any]):
-    def stringify_reduced_form(reduced: list) -> str:
-        string_reduced = " + ".join(
-            ["X^".join((val, str(idx))) for idx, val in enumerate(map(str, reduced))]
-        )
-
-        # Reduce even more
-        replacements = [
-            (r"\+ -", "- "),
-            (r"\.0 ", " "),
-            (r"\.0X", "X"),
-            (r"\^1|X\^0", ""),
-        ]
-        for old, new in replacements:
-            string_reduced = re.sub(old, new, string_reduced)
-
-        return f"Reduced form: {string_reduced} = 0"
-
-    def reduce_form(coefs: list) -> dict:
-        reduced = list(map(sum, zip(*coefs)))
-        s = func(reduced)
-        string_reduced = stringify_reduced_form(reduced)
-        return {**s, "reduced_form": string_reduced}
-
-    return reduce_form
+def expr_reducer(coefs: map) -> List[float]:
+    return list(map(sum, zip(*coefs)))
 
 
-def verbose_solution(func: Callable[..., Any]) -> dict:
-    def messenger(*args, **kwargs):
-        s = func(*args, **kwargs)()
-        if s["delta"] < 0:
-            message = "Discriminant is strictly negative, there is no solution"
-        elif s["delta"] == 0:
-            message = f"Discriminant is equal to zero, the only solution is:\n\
-                \r{s['result']}"
-
-        else:
-            message = f"Discriminant is strictly positive, the two solutions are:\n\
-                    \rS1 = {s['result'][0]: .6f}\nS2 = {s['result'][1]: .6f}"
-        return {**s, "message": message}
-
-    return messenger
-
-
-@expr_reducer
-@verbose_solution
 def solver(coefs: List[float]) -> dict:
     def get_delta(a, b, c):
         return b ** 2 - 4 * a * c
@@ -65,4 +23,4 @@ def solver(coefs: List[float]) -> dict:
             result = (s1, s2)
         return {"delta": delta, "result": result}
 
-    return second_degree
+    return second_degree()
