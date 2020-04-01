@@ -1,9 +1,10 @@
 from typing import List
+from operator import sub
 import re
 
 
 def expr_reducer(coefs: map) -> List[float]:
-    return list(map(sum, zip(*coefs)))
+    return list(map(lambda c: sub(*c), zip(*coefs)))
 
 
 def solver(coefs: List[float]) -> dict:
