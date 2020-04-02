@@ -12,7 +12,7 @@ def main(arg: str) -> int:
         split_eq = split_equality(equation)
         coefs = map(lambda eq: parser(eq, degree), split_eq)
         reduced_form = expr_reducer(coefs)
-        delta, result = solver(reduced_form).values()
+        delta, result = solver(reduced_form, degree).values()
         print(
             "\n".join(
                 (
@@ -22,16 +22,16 @@ def main(arg: str) -> int:
                 )
             )
         )
-        return 0
+        return {"status": "Success", "solutions": result}
     except Exception as e:
         print(f"[-] {e}", file=sys.stderr)
-        return -1
+        return {"status": "Error"}
 
 
 if __name__ == "__main__":
     argc = len(sys.argv)
     if argc == 2:
-        if main(sys.argv[1]) < 0:
+        if main(sys.argv[1])["status"] == "Error":
             sys.exit("[*] Exit")
     else:
         print("[-] Arguments error", file=sys.stderr)
