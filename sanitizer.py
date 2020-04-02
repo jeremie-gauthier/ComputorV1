@@ -14,4 +14,11 @@ def sanitize_entry(entry: str) -> str:
 
     if re.match(pattern, sanitized_entry) is None:
         raise Exception("Bad Formatting")
+
+    replacements = [
+        (r"([\+\-]\s*)?0(\.0+)?\s*\*\s*[xX]\s*\^\s*\d+", ""),
+        (r"^\s*\+\s*", ""),
+    ]
+    for old, new in replacements:
+        sanitized_entry = re.sub(old, new, sanitized_entry)
     return sanitized_entry
