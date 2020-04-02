@@ -8,10 +8,13 @@ from verbose import *
 def main(arg: str) -> int:
     try:
         equation = sanitize_entry(arg)
-        degree = get_polynomial_degree(equation)
+        # approximation of the degree, based on parsing
+        tmp_degree = get_approx_degree(equation)
         split_eq = split_equality(equation)
-        coefs = map(lambda eq: parser(eq, degree), split_eq)
+        coefs = map(lambda eq: parser(eq, tmp_degree), split_eq)
         reduced_form = expr_reducer(coefs)
+        # real degree, based on calculations
+        degree = get_real_degree(reduced_form)
         delta, result = solver(reduced_form, degree).values()
         print(
             "\n".join(

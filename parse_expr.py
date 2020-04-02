@@ -3,9 +3,14 @@ import re
 from sanitizer import *
 
 
-def get_polynomial_degree(equation: str) -> int:
-    pows = re.findall(r"(?<=X\^)\d*", equation)
+def get_approx_degree(equation: str) -> int:
+    pows = re.findall(r"(?<=[Xx]\^)\d*", equation)
     degree = int(max(pows, key=lambda p: int(p)))
+    return degree
+
+
+def get_real_degree(coefs: List[float]) -> int:
+    degree = len(coefs) - 1
     if degree > 2:
         raise Exception("Can't solve polynomials greater than 2nd degree.")
     elif degree == 0:
@@ -23,7 +28,7 @@ def parser(equation: str, degree: int) -> List[float]:
         return -nb if elem[0] == "-" else nb
 
     def find_pow(elem: str) -> int:
-        power = re.search(r"(?<=X\^)\d*", elem).group()
+        power = re.search(r"(?<=[Xx]\^)\d*", elem).group()
         return int(power)
 
     def list_of_zeros() -> List[float]:
@@ -32,6 +37,7 @@ def parser(equation: str, degree: int) -> List[float]:
     def extract_coefs():
         pattern_coef = r"(-\s*)?\d+(\.\d+)?\s*\*\s*[Xx]\^\d+"
         matches = re.finditer(pattern_coef, equation)
+
         return map(lambda m: m.group(), matches)
 
     raw_coefs = extract_coefs()

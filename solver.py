@@ -4,7 +4,10 @@ import re
 
 
 def expr_reducer(coefs: map) -> List[float]:
-    return list(map(lambda c: sub(*c), zip(*coefs)))
+    reduced = list(map(lambda c: sub(*c), zip(*coefs)))
+    while reduced[-1] == 0:
+        reduced = reduced[:-1]
+    return reduced
 
 
 def solver(coefs: List[float], degree: int) -> dict:
