@@ -11,10 +11,6 @@ def get_approx_degree(equation: str) -> int:
 
 def get_real_degree(coefs: List[float]) -> int:
     degree = len(coefs) - 1
-    if degree > 2:
-        raise Exception("Can't solve polynomials greater than 2nd degree.")
-    elif degree == 0:
-        raise Exception("This is not a polynomial, just an equality.")
     return degree
 
 
