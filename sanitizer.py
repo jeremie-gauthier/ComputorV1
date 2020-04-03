@@ -6,7 +6,7 @@ def sanitize_entry(entry: str) -> str:
 
     real = r"\d+(\.\d+)?"
     power = r"[Xx](\^\d+)?"
-    nb = fr"{real}((\s*\*\s*)?{power})?"
+    nb = fr"({real}|{power}|({real}\s*\*?\s*{power}))"
     sign = r"[\+\-]"
     next_nb = fr"(\s*{sign}\s*{nb})"
     eq = r"\s*\=\s*"
@@ -18,10 +18,13 @@ def sanitize_entry(entry: str) -> str:
     replacements = [
         (r"(?<=\d)[Xx]", " * X"),
         (r"[Xx](?!\^)", "X^1"),
-        (r"(?<=(?<!\^)\d)(?!([Xx])|(\s*\*))", " * X^0"),
+        (r"\+(?=\s*[xX])", "+ 1 *"),
+        (r"\-(?=\s*[xX])", "- 1 *"),
+        (r"(?<=(?<!\^)\d)(?!([Xx])|(\s*\*)|\.)", " * X^0"),
         (fr"([\+\-]\s*)?0(\.0+)?\s*\*\s*{power}", ""),
         (r"^\s*\+\s*", ""),
     ]
     for old, new in replacements:
         sanitized_entry = re.sub(old, new, sanitized_entry)
+    print(sanitized_entry)
     return sanitized_entry
