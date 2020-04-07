@@ -1,10 +1,11 @@
 from typing import List
-from operator import sub
 import re
+
 
 # To keep the expr as reduced as possible,
 # we remove all consecutive biggest coefs that are = 0
 def expr_reducer(coefs: map) -> List[float]:
+    sub = lambda x, y: x - y
     reduced = list(map(lambda c: sub(*c), zip(*coefs)))
     while reduced[-1] == 0:
         reduced = reduced[:-1]
