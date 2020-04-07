@@ -20,7 +20,12 @@ def solver(coefs: List[float], degree: int) -> dict:
         c, b, a = coefs
         delta = get_delta(a, b, c)
         if delta < 0:
-            result = None
+            # Complex solutions
+            is_neg = lambda x: x < 0
+            result = (
+                f"( {-b if is_neg(b) else f'-{b}'} + i√({-delta}) ) / {2 * a}",
+                f"( {-b if is_neg(b) else f'-{b}'} - i√({-delta}) ) / {2 * a}",
+            )
         elif delta == 0:
             result = (-b / (2 * a),)
         else:
