@@ -27,7 +27,7 @@ def solver(coefs: List[float], degree: int) -> dict:
                 f"( {-b if is_neg(b) else f'-{b}'} - i√({-delta}) ) / {2 * a}",
             )
         elif delta == 0:
-            result = (-b / (2 * a),)
+            result = (-b / (2 * a), None)
         else:
             s1 = (-b - delta ** 0.5) / (2 * a)
             s2 = (-b + delta ** 0.5) / (2 * a)

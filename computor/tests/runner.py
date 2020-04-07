@@ -39,14 +39,9 @@ class TestService(unittest.TestCase):
         result = app.run(case)
         super().assertEqual(result["status"], expected["status"])
         if result["status"] == "Success":
-            if result["solutions"] is None:
-                super().assertEqual(result["solutions"], expected["s1"])
-            elif len(result["solutions"]) == 2:
-                s1, s2 = result["solutions"]
-                super().assertEqual(s1, expected["s1"])
-                super().assertEqual(s2, expected["s2"])
-            else:
-                super().assertEqual(result["solutions"][0], expected["s1"])
+            s1, s2 = result["solutions"]
+            super().assertEqual(s1, expected["s1"])
+            super().assertEqual(s2, expected["s2"])
 
     def runAll(self):
         self.runFormattingTests(filename="formatting")
