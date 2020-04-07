@@ -2,7 +2,7 @@ import re
 
 
 def sanitize_entry(entry: str) -> str:
-    sanitized_entry = entry.strip()
+    sanitized = entry.strip()
 
     real = r"\d+(\.\d+)?"
     power = r"[Xx](\^\d+)?"
@@ -12,7 +12,7 @@ def sanitize_entry(entry: str) -> str:
     eq = r"\s*\=\s*"
     pattern = fr"^(-?{nb}){next_nb}*{eq}-?{nb}{next_nb}*$"
 
-    if re.match(pattern, sanitized_entry) is None:
+    if re.match(pattern, sanitized) is None:
         raise Exception("Bad Formatting")
 
     replacements = [
@@ -25,6 +25,5 @@ def sanitize_entry(entry: str) -> str:
         (r"^\s*\+\s*", ""),
     ]
     for old, new in replacements:
-        sanitized_entry = re.sub(old, new, sanitized_entry)
-    print(sanitized_entry)
-    return sanitized_entry
+        sanitized = re.sub(old, new, sanitized)
+    return sanitized
