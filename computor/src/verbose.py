@@ -18,7 +18,7 @@ def reduced_form(reduced: list) -> str:
         (r"\+ -", "- "),
         (r"\.0 ", " "),
         (r"\.0X", "X"),
-        (r"\^1|X\^0", ""),
+        (r"\^1(?!\d)|X\^0", ""),
     ]
     for old, new in replacements:
         string_reduced = re.sub(old, new, string_reduced)
