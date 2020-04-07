@@ -2,11 +2,12 @@
 
 **Format accepted:**
 
-{coef} * X^{pow} (+|- {coef} * X^{pow} ...) = {coef} * X^{pow} (+|- {coef} * X^{pow} ...)
+{coef} _ X^{pow} (+|- {coef} _ X^{pow} ...) = {coef} _ X^{pow} (+|- {coef} _ X^{pow} ...)
 
 **e.g.:**
 
-5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0
+5 _ X^0 + 4 _ X^1 - 9.3 _ X^2 = 1 _ X^0
 
 ## TODO:
-Make it works with operators: * /
+
+Complex solutions

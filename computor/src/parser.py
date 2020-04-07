@@ -1,6 +1,5 @@
 from typing import List
 import re
-from sanitizer import *
 
 
 def get_approx_degree(equation: str) -> int:

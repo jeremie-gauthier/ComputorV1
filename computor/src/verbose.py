@@ -2,11 +2,11 @@ import re
 from typing import Any
 
 
-def vb_degree(degree):
+def degree(degree):
     return f"Polynomial degree: {degree}"
 
 
-def vb_reduced_form(reduced: list) -> str:
+def reduced_form(reduced: list) -> str:
     string_reduced = " + ".join(
         ["X^".join((val, str(idx))) for idx, val in enumerate(map(str, reduced))]
     )
@@ -24,7 +24,7 @@ def vb_reduced_form(reduced: list) -> str:
     return f"Reduced form: {string_reduced} = 0"
 
 
-def vb_result(delta: float, result: Any) -> str:
+def result(delta: float, result: Any) -> str:
     if delta is None:
         return f"The solution is: {result}"
     else:

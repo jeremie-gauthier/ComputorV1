@@ -6,6 +6,12 @@
 		}
 	},
 	{
+		"case": "5 + 4X - 9.3X^2 + = 1",
+		"expected": {
+			"status": "Error"
+		}
+	},
+	{
 		"case": "5 * X^0 + 4 * X^1 - 9.3 * X^2 =  2 * X^02 * x^3",
 		"expected": {
 			"status": "Error"
