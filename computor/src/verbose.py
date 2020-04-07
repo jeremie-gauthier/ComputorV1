@@ -26,12 +26,16 @@ def reduced_form(reduced: list) -> str:
     return f"Reduced form: {string_reduced} = 0"
 
 
+def delta(delta: float) -> str:
+    return f"Δ = {delta}"
+
+
 def result(delta: float, result: TypeResult) -> str:
     if delta is None:
         return f"The solution is: {result}"
     else:
         if delta < 0:
-            return "Discriminant is strictly negative, there is no solution"
+            return f"Discriminant is strictly negative, there is no solution"
         elif delta == 0:
             return f"Discriminant is equal to zero, the only solution is:\n{result[0]}"
         else:

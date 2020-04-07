@@ -21,7 +21,7 @@ def run(arg: str) -> int:
             raise Exception("This is not a polynomial, just an equality.")
 
         delta, result = solver.solver(reduced_form, degree).values()
-        print(verbose.result(delta, result))
+        print("\n".join([verbose.delta(delta), verbose.result(delta, result)]))
         return {"status": "Success", "solutions": result}
 
     except Exception as e:
