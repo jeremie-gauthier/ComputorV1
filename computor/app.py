@@ -1,5 +1,4 @@
 import sys
-import re
 from computor.src import parser, sanitizer, solver, verbose
 
 
