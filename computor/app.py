@@ -22,7 +22,7 @@ def run(arg: str) -> int:
 
         delta, result = solver.solver(reduced_form, degree).values()
         print("\n".join([verbose.delta(delta), verbose.result(delta, result)]))
-        return {"status": "Success", "solutions": result}
+        return {"status": "Success", "solutions": result[1]}
 
     except Exception as e:
         print(f"[-] {e}", file=sys.stderr)

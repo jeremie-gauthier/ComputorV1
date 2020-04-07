@@ -32,14 +32,24 @@ def delta(delta: float) -> str:
 
 def result(delta: float, result: TypeResult) -> str:
     if delta is None:
-        return f"The solution is: {result}"
+        return f"""The solution is:
+                \r\t{result[0][0]}
+                \rSo:
+                \r\t{result[1][0]}"""
     else:
         if delta < 0:
             return f"""Discriminant is strictly negative, there is no real root.
-            \rHowever, it exists two complex solutions:
-            \rS1 = {result[0]}\nS2 = {result[1]}"""
+                    \rHowever, it exists two complex solutions:
+                    \r\tS1 = {result[0][0]}\n\tS2 = {result[0][1]}
+                    \rSo:
+                    \r\tS1 = {result[1][0]}\n\tS2 = {result[1][1]}"""
         elif delta == 0:
-            return f"Discriminant is equal to zero, the only solution is:\n{result[0]}"
+            return f"""Discriminant is equal to zero, the only solution is:
+                    \r\t{result[0][0]}
+                    \rSo:
+                    \r\t{result[1][0]}"""
         else:
             return f"""Discriminant is strictly positive, the two solutions are:
-                    \rS1 = {result[0]: .6f}\nS2 = {result[1]: .6f}"""
+                    \r\tS1 = {result[0][0]}\n\tS2 = {result[0][1]}
+                    \rSo:
+                    \r\tS1 = {result[1][0]: .6f}\n\tS2 = {result[1][1]: .6f}"""

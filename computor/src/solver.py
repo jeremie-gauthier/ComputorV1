@@ -13,6 +13,8 @@ def expr_reducer(coefs: map) -> List[float]:
 
 
 def solver(coefs: List[float], degree: int) -> dict:
+    is_neg = lambda x: x < 0
+
     def get_delta(a: float, b: float, c: float) -> float:
         return b ** 2 - 4 * a * c
 
@@ -21,22 +23,34 @@ def solver(coefs: List[float], degree: int) -> dict:
         delta = get_delta(a, b, c)
         if delta < 0:
             # Complex solutions
-            is_neg = lambda x: x < 0
-            result = (
-                f"( {-b if is_neg(b) else f'-{b}'} + i√({-delta}) ) / {2 * a}",
-                f"( {-b if is_neg(b) else f'-{b}'} - i√({-delta}) ) / {2 * a}",
-            )
+            imaginary = ((delta * -1) ** 0.5) / (2 * a)
+            real = -b / (2 * a)
+            result = [
+                (
+                    f"( {-b if is_neg(b) else f'-{b}'} + i√({-delta}) ) / {2 * a}",
+                    f"( {-b if is_neg(b) else f'-{b}'} - i√({-delta}) ) / {2 * a}",
+                ),
+                (
+                    f"{real} + {imaginary} * i".replace("+ -", "- "),
+                    f"{real} - {imaginary} * i".replace("- -", "+ "),
+                ),
+            ]
         elif delta == 0:
-            result = (-b / (2 * a), None)
+            result = [
+                (f"{-b if is_neg(b) else f'-{b}'} / ( 2 * {a} )", None),
+                (-b / (2 * a), None),
+            ]
         else:
+            pre_s1 = f"( {-b if is_neg(b) else f'-{b}'} - √({delta}) ) / ( 2 * {a})"
+            pre_s2 = f"( {-b if is_neg(b) else f'-{b}'} + √({delta}) ) / ( 2 * {a})"
             s1 = (-b - delta ** 0.5) / (2 * a)
             s2 = (-b + delta ** 0.5) / (2 * a)
-            result = (s1, s2)
+            result = [(pre_s1, pre_s2), (s1, s2)]
         return {"delta": delta, "result": result}
 
     def first_degree() -> dict:
         b, a = coefs
-        result = -b / a
+        result = [f"{-b if is_neg(b) else f'-{b}'} / {a}", -b / a]
         return {"delta": None, "result": result}
 
     if degree == 1:
