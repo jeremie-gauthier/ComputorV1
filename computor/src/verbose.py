@@ -27,15 +27,18 @@ def reduced_form(reduced: list) -> str:
 
 
 def delta(delta: float) -> str:
-    return f"Δ = {delta}"
+    if delta is None:
+        return "Δ = No delta found"
+    else:
+        return f"Δ = {delta}"
 
 
 def result(delta: float, result: TypeResult) -> str:
     if delta is None:
         return f"""The solution is:
-                \r\t{result[0][0]}
+                \r\t{result[0]}
                 \rSo:
-                \r\t{result[1][0]}"""
+                \r\t{result[1]}"""
     else:
         if delta < 0:
             return f"""Discriminant is strictly negative, there is no real root.
