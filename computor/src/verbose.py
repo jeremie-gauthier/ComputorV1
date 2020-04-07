@@ -41,5 +41,5 @@ def result(delta: float, result: TypeResult) -> str:
         elif delta == 0:
             return f"Discriminant is equal to zero, the only solution is:\n{result[0]}"
         else:
-            return f"Discriminant is strictly positive, the two solutions are:\n\
-                    \rS1 = {result[0]: .6f}\nS2 = {result[1]: .6f}"
+            return f"""Discriminant is strictly positive, the two solutions are:
+                    \rS1 = {result[0]: .6f}\nS2 = {result[1]: .6f}"""
