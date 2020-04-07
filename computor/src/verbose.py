@@ -1,5 +1,7 @@
 import re
-from typing import Any
+from typing import Union, Tuple
+
+TypeResult = Union[None, Tuple[float, ...]]
 
 
 def degree(degree):
@@ -24,7 +26,7 @@ def reduced_form(reduced: list) -> str:
     return f"Reduced form: {string_reduced} = 0"
 
 
-def result(delta: float, result: Any) -> str:
+def result(delta: float, result: TypeResult) -> str:
     if delta is None:
         return f"The solution is: {result}"
     else:
