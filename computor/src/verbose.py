@@ -35,7 +35,9 @@ def result(delta: float, result: TypeResult) -> str:
         return f"The solution is: {result}"
     else:
         if delta < 0:
-            return f"Discriminant is strictly negative, there is no solution"
+            return f"""Discriminant is strictly negative, there is no real root.
+            \rHowever, it exists two complex solutions:
+            \rS1 = {result[0]}\nS2 = {result[1]}"""
         elif delta == 0:
             return f"Discriminant is equal to zero, the only solution is:\n{result[0]}"
         else:
