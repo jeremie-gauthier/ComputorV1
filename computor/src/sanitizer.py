@@ -1,4 +1,4 @@
-import re
+import regex
 
 
 def sanitize_entry(entry: str) -> str:
@@ -12,7 +12,7 @@ def sanitize_entry(entry: str) -> str:
     eq = r"\s*\=\s*"
     pattern = fr"^(-?{nb}){next_nb}*{eq}-?{nb}{next_nb}*$"
 
-    if re.match(pattern, sanitized) is None:
+    if regex.match(pattern, sanitized) is None:
         raise Exception("Bad Formatting")
 
     replacements = [
@@ -20,10 +20,10 @@ def sanitize_entry(entry: str) -> str:
         (r"[Xx](?!\^)", "X^1"),
         (r"\+(?=\s*[xX])", "+ 1 *"),
         (r"\-(?=\s*[xX])", "- 1 *"),
-        (r"(?<=(?<!\^)\d)(?!([Xx])|(\s*\*)|\.)", " * X^0"),
+        (r"(?<=(?<!\^\d+)\d)(?!\d|\.|\s*\*|\s*[xX])", " * X^0"),
         (fr"([\+\-]\s*)?0(\.0+)?\s*\*\s*{power}", ""),
         (r"^\s*\+\s*", ""),
     ]
     for old, new in replacements:
-        sanitized = re.sub(old, new, sanitized)
+        sanitized = regex.sub(old, new, sanitized)
     return sanitized
