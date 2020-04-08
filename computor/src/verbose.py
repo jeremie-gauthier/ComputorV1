@@ -38,7 +38,7 @@ def result(delta: float, result: TypeResult) -> str:
         return f"""The solution is:
                 \r\t{result[0]}
                 \rSo:
-                \r\t{result[1]}"""
+                \r\t{result[1][0]}"""
     else:
         if delta < 0:
             return f"""Discriminant is strictly negative, there is no real root.
