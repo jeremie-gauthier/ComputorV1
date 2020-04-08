@@ -62,5 +62,13 @@
 			"s1": "This is an equality\n\tAll reals are possible solutions",
 			"s2": null
 		}
+	},
+	{
+		"case": "2x + 6 = 0",
+		"expected": {
+			"status": "Success",
+			"s1": -3.0,
+			"s2": null
+		}
 	}
 ]
