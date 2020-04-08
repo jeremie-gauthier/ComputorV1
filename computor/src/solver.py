@@ -12,61 +12,77 @@ def expr_reducer(coefs: map) -> List[float]:
     return reduced
 
 
-def solver(coefs: List[float], degree: int) -> dict:
-    is_neg = lambda x: x < 0
+def is_neg(x: float):
+    return x < 0
 
+
+def second_degree(coefs: List[float]) -> dict:
     def get_delta(a: float, b: float, c: float) -> float:
         return b ** 2 - 4 * a * c
 
-    def second_degree() -> dict:
-        c, b, a = coefs
-        delta = get_delta(a, b, c)
-        if delta < 0:
-            # Complex solutions
-            imaginary = ((delta * -1) ** 0.5) / (2 * a)
-            real = -b / (2 * a)
-            result = [
-                (
-                    f"( {-b if is_neg(b) else f'-{b}'} + i√({-delta}) ) / {2 * a}",
-                    f"( {-b if is_neg(b) else f'-{b}'} - i√({-delta}) ) / {2 * a}",
-                ),
-                (
-                    f"{real} + {imaginary} * i".replace("+ -", "- "),
-                    f"{real} - {imaginary} * i".replace("- -", "+ "),
-                ),
-            ]
-        elif delta == 0:
-            result = [
-                (f"{-b if is_neg(b) else f'-{b}'} / ( 2 * {a} )", None),
-                (-b / (2 * a), None),
-            ]
-        else:
-            pre_s1 = f"( {-b if is_neg(b) else f'-{b}'} - √({delta}) ) / ( 2 * {a})"
-            pre_s2 = f"( {-b if is_neg(b) else f'-{b}'} + √({delta}) ) / ( 2 * {a})"
-            s1 = (-b - delta ** 0.5) / (2 * a)
-            s2 = (-b + delta ** 0.5) / (2 * a)
-            result = [(pre_s1, pre_s2), (s1, s2)]
-        return {"delta": delta, "result": result}
+    def positive_delta():
+        # Complex solutions
+        imaginary = ((delta * -1) ** 0.5) / (2 * a)
+        real = -b / (2 * a)
+        result = [
+            (
+                f"( {-b if is_neg(b) else f'-{b}'} + i√({-delta}) ) / {2 * a}",
+                f"( {-b if is_neg(b) else f'-{b}'} - i√({-delta}) ) / {2 * a}",
+            ),
+            (
+                f"{real} + {imaginary} * i".replace("+ -", "- "),
+                f"{real} - {imaginary} * i".replace("- -", "+ "),
+            ),
+        ]
+        return result
 
-    def first_degree() -> dict:
-        b, a = coefs
-        result = [f"{-b if is_neg(b) else f'-{b}'} / {a}", -b / a]
-        return {"delta": None, "result": result}
+    def nullish_delta():
+        result = [
+            (f"{-b if is_neg(b) else f'-{b}'} / ( 2 * {a} )", None),
+            (-b / (2 * a), None),
+        ]
+        return result
 
-    def equality_case() -> dict:
-        (n,) = coefs
-        observation = f"{n} = 0"
-        if n > 0:
-            result = f"This is an inequality\n\t{n} > 0"
-        elif n < 0:
-            result = f"This is an inequality\n\t{n} < 0"
-        else:
-            result = f"This is an equality\n\tAll reals are possible solutions"
-        return {"delta": None, "result": [observation, (result, None)]}
+    def negative_delta():
+        pre_s1 = f"( {-b if is_neg(b) else f'-{b}'} - √({delta}) ) / ( 2 * {a})"
+        pre_s2 = f"( {-b if is_neg(b) else f'-{b}'} + √({delta}) ) / ( 2 * {a})"
+        s1 = (-b - delta ** 0.5) / (2 * a)
+        s2 = (-b + delta ** 0.5) / (2 * a)
+        result = [(pre_s1, pre_s2), (s1, s2)]
+        return result
 
-    if degree == 0:
-        return equality_case()
-    elif degree == 1:
-        return first_degree()
-    elif degree == 2:
-        return second_degree()
+    c, b, a = coefs
+    delta = get_delta(a, b, c)
+    if delta < 0:
+        result = positive_delta()
+    elif delta == 0:
+        result = nullish_delta()
+    else:
+        result = negative_delta()
+    return {"delta": delta, "result": result}
+
+
+def first_degree(coefs: List[float]) -> dict:
+    b, a = coefs
+    formula = f"{-b if is_neg(b) else f'-{b}'} / {a}"
+    result = (-b / a, None)
+    return {"delta": None, "result": [formula, result]}
+
+
+def zero_degree(coefs: List[float]) -> dict:
+    (n,) = coefs
+    observation = f"{n} = 0"
+    if n > 0:
+        result = f"This is an inequality\n\t{n} > 0"
+    elif n < 0:
+        result = f"This is an inequality\n\t{n} < 0"
+    else:
+        result = f"This is an equality\n\tAll reals are possible solutions"
+    return {"delta": None, "result": [observation, (result, None)]}
+
+
+def solver(coefs: List[float], degree: int) -> dict:
+    try:
+        return [zero_degree, first_degree, second_degree][degree](coefs)
+    except IndexError:
+        raise Exception("Can't solve polynomials greater than 2nd degree.")
