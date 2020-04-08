@@ -46,5 +46,21 @@
 			"s1": -4.0,
 			"s2": 0.0
 		}
+	},
+	{
+		"case": "0 = 1",
+		"expected": {
+			"status": "Success",
+			"s1": "This is an inequality\n\t-1.0 < 0",
+			"s2": null
+		}
+	},
+	{
+		"case": "42 = 42",
+		"expected": {
+			"status": "Success",
+			"s1": "This is an equality\n\tAll reals are possible solutions",
+			"s2": null
+		}
 	}
 ]
