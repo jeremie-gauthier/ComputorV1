@@ -37,7 +37,6 @@ def parser(equation: str, degree: int) -> List[float]:
     def extract_coefs():
         pattern_coef = r"(-\s*)?\d+(\.\d+)?\s*\*\s*[Xx]\^\d+"
         matches = re.finditer(pattern_coef, equation)
-
         return map(lambda m: m.group(), matches)
 
     raw_coefs = extract_coefs()
