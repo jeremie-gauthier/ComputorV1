@@ -17,8 +17,6 @@ def run(arg: str) -> int:
         print("\n".join([verbose.reduced_form(reduced_form), verbose.degree(degree)]))
         if degree > 2:
             raise Exception("Can't solve polynomials greater than 2nd degree.")
-        elif degree == 0:
-            raise Exception("This is not a polynomial, just an equality.")
 
         delta, result = solver.solver(reduced_form, degree).values()
         print("\n".join([verbose.delta(delta), verbose.result(delta, result)]))

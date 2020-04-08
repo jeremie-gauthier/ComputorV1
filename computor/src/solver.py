@@ -7,7 +7,7 @@ import re
 def expr_reducer(coefs: map) -> List[float]:
     sub = lambda x, y: x - y
     reduced = list(map(lambda c: sub(*c), zip(*coefs)))
-    while reduced[-1] == 0:
+    while len(reduced) > 1 and reduced[-1] == 0:
         reduced = reduced[:-1]
     return reduced
 
@@ -53,7 +53,20 @@ def solver(coefs: List[float], degree: int) -> dict:
         result = [f"{-b if is_neg(b) else f'-{b}'} / {a}", -b / a]
         return {"delta": None, "result": result}
 
-    if degree == 1:
+    def equality_case() -> dict:
+        (n,) = coefs
+        observation = f"{n} = 0"
+        if n > 0:
+            result = f"This is an inequality\n\t{n} > 0"
+        elif n < 0:
+            result = f"This is an inequality\n\t{n} < 0"
+        else:
+            result = f"This is an equality\n\tAll reals are possible solutions"
+        return {"delta": None, "result": [observation, (result, None)]}
+
+    if degree == 0:
+        return equality_case()
+    elif degree == 1:
         return first_degree()
-    else:
+    elif degree == 2:
         return second_degree()
