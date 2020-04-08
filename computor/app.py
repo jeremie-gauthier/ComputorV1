@@ -15,7 +15,6 @@ def run(arg: str) -> int:
         reduced_form = solver.expr_reducer(coefs)
         degree = parser.get_real_degree(reduced_form)
         print("\n".join([verbose.reduced_form(reduced_form), verbose.degree(degree)]))
-
         delta, result = solver.solver(reduced_form, degree).values()
         print("\n".join([verbose.delta(delta), verbose.result(delta, result)]))
         return {"status": "Success", "solutions": result[1]}
