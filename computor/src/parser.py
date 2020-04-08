@@ -24,7 +24,7 @@ def split_equality(equation: str) -> List[str]:
 
 def parser(equation: str, degree: int) -> List[float]:
     def find_nb(elem: str) -> float:
-        nb = float(re.search(r"\d*\.?\d+", elem).group())
+        nb = float(re.search(r"\d+(\.\d+)?", elem).group())
         return -nb if elem[0] == "-" else nb
 
     def find_pow(elem: str) -> int:
