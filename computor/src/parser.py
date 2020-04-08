@@ -3,7 +3,7 @@ import re
 
 
 def get_approx_degree(equation: str) -> int:
-    pows = re.findall(r"(?<=[Xx]\^)\d*", equation)
+    pows = re.findall(r"(?<=[Xx]\^)\d+", equation)
     if pows:
         degree = int(max(pows, key=lambda p: int(p)))
     else:
