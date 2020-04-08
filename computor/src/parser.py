@@ -4,12 +4,17 @@ import re
 
 def get_approx_degree(equation: str) -> int:
     pows = re.findall(r"(?<=[Xx]\^)\d*", equation)
-    degree = int(max(pows, key=lambda p: int(p)))
+    if pows:
+        degree = int(max(pows, key=lambda p: int(p)))
+    else:
+        degree = 0
     return degree
 
 
 def get_real_degree(coefs: List[float]) -> int:
     degree = len(coefs) - 1
+    if degree == -1:
+        return 0
     return degree
 
 
