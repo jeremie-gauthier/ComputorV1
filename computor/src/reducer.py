@@ -1,6 +1,8 @@
-from typing import List
+from typing import List, Tuple
+from .type_hints import TypeNumber, TypeRetFraction
 from itertools import takewhile
 from .verbose import mid_steps_reducer
+from .utils import gcd
 
 
 def merge_dict_coefs(dicts: List[dict], verbose: bool) -> dict:
@@ -35,3 +37,13 @@ def expression(coefs: map, verbose: bool) -> List[float]:
     dict_coefs, mid_steps = merge_dict_coefs(tuple(coefs), verbose)
     reduced = remove_nullish_coefs(dict_coefs)
     return (reduced, mid_steps)
+
+
+# Apply this in program
+def fraction(a: TypeNumber, b: TypeNumber) -> TypeRetFraction:
+    if a == int(a) and b == int(b):
+        divisor = gcd(a, b)
+        if divisor > 1:
+            return (a / divisor, b / divisor)
+        return (a, b)
+    return None
