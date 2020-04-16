@@ -4,21 +4,25 @@ from typing import Union, Tuple
 TypeResult = Union[None, Tuple[float, ...]]
 
 
-def degree(degree):
+def degree(degree: int) -> str:
     return f"Polynomial degree: {degree}"
 
 
 def reduced_form(reduced: list) -> str:
     string_reduced = " + ".join(
-        ["X^".join((val, str(idx))) for idx, val in enumerate(map(str, reduced))]
+        [
+            "X^".join((val, str(idx)))
+            for idx, val in enumerate(map(str, reduced))
+            if val != "0.0"
+        ]
     )
-
     # Reduce even more
     replacements = [
         (r"\+ -", "- "),
         (r"\.0 ", " "),
         (r"\.0X", "X"),
         (r"\^1(?!\d)|X\^0", ""),
+        (r"(?<=\s)1(?=X)", ""),
     ]
     for old, new in replacements:
         string_reduced = re.sub(old, new, string_reduced)
