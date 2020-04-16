@@ -1,7 +1,5 @@
 import re
-from typing import Union, Tuple
-
-TypeResult = Union[None, Tuple[float, ...]]
+from .type_hints import TypeResult
 
 
 def mid_steps_reducer(left: dict, right: dict):
