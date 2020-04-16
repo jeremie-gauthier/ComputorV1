@@ -4,11 +4,30 @@ from typing import Union, Tuple
 TypeResult = Union[None, Tuple[float, ...]]
 
 
+def mid_steps_reducer(left: dict, right: dict):
+    left_string = natural_form(reduce_form(left)) if left else "0"
+    right_string = natural_form(reduce_form(right)) if right else "0"
+    return f"Mid step: {left_string} = {right_string}"
+
+
 def degree(degree: int) -> str:
     return f"Polynomial degree: {degree}"
 
 
-def reduced_form(reduced: list) -> str:
+def natural_form(reduced: list) -> str:
+    replacements = [
+        (r"\.0 ", " "),
+        (r"\.0X", "X"),
+        (r"\^1(?!\d)|X\^0", ""),
+        (r"(?<=\s)1(?=X)", ""),
+        (r"^1(?=X)", ""),
+    ]
+    for old, new in replacements:
+        reduced = re.sub(old, new, reduced)
+    return reduced
+
+
+def reduce_form(reduced: list) -> str:
     len_reduced = len(reduced)
     items = sorted(reduced.items(), reverse=True)
     string_reduced = " + ".join(
@@ -17,20 +36,12 @@ def reduced_form(reduced: list) -> str:
             for power, coef in items
             if (coef != 0.0 and len_reduced > 1) or len_reduced == 1
         ]
-    )
+    ).replace("+ -", "- ")
+    return string_reduced
 
-    # Reduce even more
-    replacements = [
-        (r"\+ -", "- "),
-        (r"\.0 ", " "),
-        (r"\.0X", "X"),
-        (r"\^1(?!\d)|X\^0", ""),
-        (r"(?<=\s)1(?=X)", ""),
-        (r"^1(?=X)", ""),
-    ]
-    for old, new in replacements:
-        string_reduced = re.sub(old, new, string_reduced)
 
+def reduced_form(reduced: list) -> str:
+    string_reduced = natural_form(reduce_form(reduced))
     return f"Reduced form: {string_reduced} = 0"
 
 
