@@ -10,11 +10,12 @@ def degree(degree: int) -> str:
 
 def reduced_form(reduced: list) -> str:
     len_reduced = len(reduced)
+    items = sorted(reduced.items(), reverse=True)
     string_reduced = " + ".join(
         [
-            "X^".join((val, str(idx)))
-            for idx, val in enumerate(map(str, reduced))
-            if (val != "0.0" and len_reduced > 1) or len_reduced == 1
+            "X^".join((str(coef), str(power)))
+            for power, coef in items
+            if (coef != 0.0 and len_reduced > 1) or len_reduced == 1
         ]
     )
 
@@ -25,6 +26,7 @@ def reduced_form(reduced: list) -> str:
         (r"\.0X", "X"),
         (r"\^1(?!\d)|X\^0", ""),
         (r"(?<=\s)1(?=X)", ""),
+        (r"^1(?=X)", ""),
     ]
     for old, new in replacements:
         string_reduced = re.sub(old, new, string_reduced)

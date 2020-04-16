@@ -2,13 +2,36 @@ from typing import List
 import re
 
 
+def merge_dict_coefs(d1: dict, d2: dict) -> dict:
+    new_dict = {0: 0, **d1}
+    for key, value in d2.items():
+        if key in new_dict:
+            new_dict[key] -= value
+        else:
+            new_dict[key] = -value
+    return new_dict
+
+
+def remove_nullish_coefs(dict_coefs: dict) -> dict:
+    keys = sorted(dict_coefs.keys(), reverse=True)
+    new_dict = {**dict_coefs}
+    null_keys = []
+    for key in keys:
+        if new_dict[key] == 0 and key != 0:
+            null_keys.append(key)
+        else:
+            break
+    for key in null_keys:
+        del new_dict[key]
+    return new_dict
+
+
 # To keep the expr as reduced as possible,
 # we remove all consecutive biggest coefs that are = 0
 def expr_reducer(coefs: map) -> List[float]:
     sub = lambda x, y: x - y
-    reduced = list(map(lambda c: sub(*c), zip(*coefs)))
-    while len(reduced) > 1 and reduced[-1] == 0:
-        reduced = reduced[:-1]
+    dict_coefs = merge_dict_coefs(*coefs)
+    reduced = remove_nullish_coefs(dict_coefs)
     return reduced
 
 
@@ -51,7 +74,7 @@ def second_degree(coefs: List[float]) -> dict:
         result = [(pre_s1, pre_s2), (s1, s2)]
         return result
 
-    c, b, a = coefs
+    c, b, a = [coefs.get(c, 0) for c in range(3)]
     delta = get_delta(a, b, c)
     if delta < 0:
         result = positive_delta()
@@ -63,14 +86,14 @@ def second_degree(coefs: List[float]) -> dict:
 
 
 def first_degree(coefs: List[float]) -> dict:
-    b, a = coefs
+    b, a = [coefs.get(c, 0) for c in range(2)]
     formula = f"{-b if is_neg(b) else f'-{b}'} / {a}"
     result = (-b / a, None)
     return {"delta": None, "result": [formula, result]}
 
 
 def zero_degree(coefs: List[float]) -> dict:
-    (n,) = coefs
+    n = coefs.get(0, 0)
     observation = f"{n} = 0"
     if n == 0:
         result = f"All reals are possible solutions"
