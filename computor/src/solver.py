@@ -72,12 +72,10 @@ def first_degree(coefs: List[float]) -> dict:
 def zero_degree(coefs: List[float]) -> dict:
     (n,) = coefs
     observation = f"{n} = 0"
-    if n > 0:
-        result = f"This is an inequality\n\t{n} > 0"
-    elif n < 0:
-        result = f"This is an inequality\n\t{n} < 0"
-    else:
+    if n == 0:
         result = f"This is an equality\n\tAll reals are possible solutions"
+    else:
+        result = f"There is no solution"
     return {"delta": None, "result": [observation, (result, None)]}
 
 

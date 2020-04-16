@@ -51,7 +51,7 @@
 		"case": "0 = 1",
 		"expected": {
 			"status": "Success",
-			"s1": "This is an inequality\n\t-1.0 < 0",
+			"s1": "There is no solution",
 			"s2": null
 		}
 	},
