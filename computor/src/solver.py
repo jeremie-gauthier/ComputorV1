@@ -73,7 +73,7 @@ def zero_degree(coefs: List[float]) -> dict:
     (n,) = coefs
     observation = f"{n} = 0"
     if n == 0:
-        result = f"This is an equality\n\tAll reals are possible solutions"
+        result = f"All reals are possible solutions"
     else:
         result = f"There is no solution"
     return {"delta": None, "result": [observation, (result, None)]}

@@ -59,7 +59,15 @@
 		"case": "42 = 42",
 		"expected": {
 			"status": "Success",
-			"s1": "This is an equality\n\tAll reals are possible solutions",
+			"s1": "All reals are possible solutions",
+			"s2": null
+		}
+	},
+	{
+		"case": "5 = 5.0",
+		"expected": {
+			"status": "Success",
+			"s1": "All reals are possible solutions",
 			"s2": null
 		}
 	},
