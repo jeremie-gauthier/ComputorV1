@@ -1,9 +1,6 @@
 from typing import List
 import re
-
-
-def is_neg(x: float):
-    return x < 0
+from .utils import is_neg
 
 
 def second_degree(coefs: List[float]) -> dict:
