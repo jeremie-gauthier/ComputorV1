@@ -9,13 +9,15 @@ def degree(degree: int) -> str:
 
 
 def reduced_form(reduced: list) -> str:
+    len_reduced = len(reduced)
     string_reduced = " + ".join(
         [
             "X^".join((val, str(idx)))
             for idx, val in enumerate(map(str, reduced))
-            if val != "0.0"
+            if (val != "0.0" and len_reduced > 1) or len_reduced == 1
         ]
     )
+
     # Reduce even more
     replacements = [
         (r"\+ -", "- "),
