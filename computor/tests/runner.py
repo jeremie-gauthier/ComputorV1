@@ -39,7 +39,9 @@ class TestService(unittest.TestCase):
         result = app.run(case)
         super().assertEqual(result["status"], expected["status"])
         if result["status"] == "Success":
-            s1, s2 = result["solutions"]
+            s1, s2 = map(
+                lambda x: round(x, 6) if type(x) is float else x, result["solutions"],
+            )
             super().assertEqual(s1, expected["s1"])
             super().assertEqual(s2, expected["s2"])
 
