@@ -44,8 +44,8 @@ def second_degree(coefs: List[float]) -> dict:
         return result
 
     def negative_delta():
-        pre_s1 = f"( {-b if is_neg(b) else f'-{b}'} - √({delta}) ) / ( 2 * {a})"
-        pre_s2 = f"( {-b if is_neg(b) else f'-{b}'} + √({delta}) ) / ( 2 * {a})"
+        pre_s1 = f"( {-b if is_neg(b) else f'-{b}'} - √({delta}) ) / ( 2 * {a} )"
+        pre_s2 = f"( {-b if is_neg(b) else f'-{b}'} + √({delta}) ) / ( 2 * {a} )"
         s1 = (-b - delta ** 0.5) / (2 * a)
         s2 = (-b + delta ** 0.5) / (2 * a)
         result = [(pre_s1, pre_s2), (s1, s2)]
