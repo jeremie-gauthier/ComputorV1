@@ -1,5 +1,5 @@
 import sys
-from computor.src import parser, sanitizer, solver, verbose
+from computor.src import parser, sanitizer, solver, verbose, reducer
 
 
 def run(arg: str) -> int:
@@ -11,7 +11,7 @@ def run(arg: str) -> int:
         coefs = map(lambda eq: parser.parser(eq), split_eq)
 
         # Start equation resolution
-        reduced_form = solver.expr_reducer(coefs)
+        reduced_form = reducer.expression(coefs)
         degree = parser.get_degree(reduced_form)
         print("\n".join([verbose.reduced_form(reduced_form), verbose.degree(degree)]))
         delta, result = solver.solver(reduced_form, degree).values()
