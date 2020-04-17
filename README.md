@@ -8,7 +8,13 @@
 
 At the root of the project: ```python -m computor <equation> [options]```
 
-### Accepted Formats:
+**Examples:**
+
+```python -m computor "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1" -v```
+
+```python -m computor "5 + 4x - 9.3x^2 = 1 + x"```
+
+### Accepted Formats
 
 By default, the only pattern accepted is the following:
 
@@ -18,15 +24,31 @@ But my program accepts equation written in natural form.
 
 See below the same equation written with the two different syntaxes.
 
-**e.g.:**
+**Examples:**
 
 _Default syntax:_
 
-- ```5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1```
+```5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1```
 
 _Enhanced syntax:_
 
-- ```5 + 4x - 9.3x^2 = 1 + x```
+```5 + 4x - 9.3x^2 = 1 + x```
+
+### Unit tests
+
+This program comes with its own unit tests module.
+
+Start these tests is as simple as ```python -m computor.tests [options]```
+
+**Options:**
+
+The following tests are available:
+- format
+- result
+
+You can enumerate them in options to only start the desired ones.
+
+Please note that the default behaviour is to start them all, so you don't need to specify all if you want all tests to execute.
 
 ## Bonus part
 
