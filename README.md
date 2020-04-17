@@ -1,8 +1,6 @@
 # Polynomial equation solver
 
-<p align="center">
-  <img src="https://media2.giphy.com/media/9cpXRPjZuo6pq/giphy.gif?cid=ecf05e474ac62853aba498f4c88ac857ff07c383d3b2efd0&rid=giphy.gif" />
-</p>
+![Alt Text](https://media2.giphy.com/media/9cpXRPjZuo6pq/giphy.gif?cid=ecf05e474ac62853aba498f4c88ac857ff07c383d3b2efd0&rid=giphy.gif)
 
 ## Installation
 
