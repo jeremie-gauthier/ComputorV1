@@ -2,11 +2,11 @@
 
 ![Alt Text](https://media2.giphy.com/media/9cpXRPjZuo6pq/giphy.gif?cid=ecf05e474ac62853aba498f4c88ac857ff07c383d3b2efd0&rid=giphy.gif)
 
-## Installation
+## Installation 👨‍💻
 
 ```git clone https://github.com/jeremie-gauthier/ComputorV1.git```
 
-## Usage
+## Usage ✍️
 
 At the root of the project: ```python -m computor <equation> [options]```
 
@@ -22,7 +22,7 @@ By default, the only pattern accepted is the following:
 
 - {coef} \* X^{pow} (+|- {coef} \* X^{pow} ...) = {coef} \* X^{pow} (+|- {coef} \* X^{pow} ...)
 
-But my program accepts equation written in natural form.
+But my program accepts equation written in natural form. 🏆
 
 See below the same equation written with the two different syntaxes.
 
@@ -52,7 +52,7 @@ You can enumerate them in options to only start the desired ones.
 
 Please note that the default behaviour is to start them all, so you don't need to specify all if you want all tests to execute.
 
-## Bonus part
+## Bonus part 🚀
 
 - Intermediate stages can be viewed when reducing the form or computing the delta
 - An irreducible form of the fraction is given whenever it is possible
