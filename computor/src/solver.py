@@ -5,7 +5,11 @@ from .utils import is_neg
 
 def second_degree(coefs: List[float]) -> dict:
     def get_delta(a: float, b: float, c: float) -> float:
-        return b ** 2 - 4 * a * c
+        mid_steps = map(
+            lambda s: "Δ = " + s, (f"{b}^2 - 4 * {a} * {c}", f"{b**2} - {4 * a * c}"),
+        )
+        result = b ** 2 - 4 * a * c
+        return (result, mid_steps)
 
     def positive_delta():
         # Complex solutions
@@ -39,21 +43,21 @@ def second_degree(coefs: List[float]) -> dict:
         return result
 
     c, b, a = [coefs.get(c, 0) for c in range(3)]
-    delta = get_delta(a, b, c)
+    delta, mid_steps = get_delta(a, b, c)
     if delta < 0:
         result = positive_delta()
     elif delta == 0:
         result = nullish_delta()
     else:
         result = negative_delta()
-    return {"delta": delta, "result": result}
+    return {"delta": delta, "result": result, "steps_to_delta": mid_steps}
 
 
 def first_degree(coefs: List[float]) -> dict:
     b, a = [coefs.get(c, 0) for c in range(2)]
     formula = f"{-b if is_neg(b) else f'-{b}'} / {a}"
     result = (-b / a, None)
-    return {"delta": None, "result": [formula, result]}
+    return {"delta": None, "result": [formula, result], "steps_to_delta": None}
 
 
 def zero_degree(coefs: List[float]) -> dict:
@@ -63,7 +67,11 @@ def zero_degree(coefs: List[float]) -> dict:
         result = f"All reals are possible solutions"
     else:
         result = f"There is no solution"
-    return {"delta": None, "result": [observation, (result, None)]}
+    return {
+        "delta": None,
+        "result": [observation, (result, None)],
+        "steps_to_delta": None,
+    }
 
 
 def solver(coefs: List[float], degree: int) -> dict:

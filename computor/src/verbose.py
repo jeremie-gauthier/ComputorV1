@@ -5,7 +5,7 @@ from .type_hints import TypeResult
 def mid_steps_reducer(left: dict, right: dict):
     left_string = natural_form(reduce_form(left)) if left else "0"
     right_string = natural_form(reduce_form(right)) if right else "0"
-    return f"Mid step: {left_string} = {right_string}"
+    return f"Reduced form: {left_string} = {right_string}"
 
 
 def degree(degree: int) -> str:
