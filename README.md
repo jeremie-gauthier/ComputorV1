@@ -6,7 +6,7 @@
 
 ## Usage
 
-At the root of the project ```python -m computor <equation> [options]```
+At the root of the project: ```python -m computor <equation> [options]```
 
 **Format accepted:**
 
@@ -24,4 +24,3 @@ At the root of the project ```python -m computor <equation> [options]```
 - The program includes its own unit tests module
 - Equation can be written in natural form (e.g.: "5 + 42x = 0" instead of "5 \* X^0 + 42 \* X^1 = 0 \* X^0")
 - The reduced form of the equation is given in its natural form
-````
