@@ -1,10 +1,11 @@
 import sys
-from computor.src import parser, sanitizer, solver, verbose, reducer
+from computor.src import parser, solver, verbose, reducer
+from .src.check import checker
 
 
 def run(entry: str, opt_verbose: bool = False) -> int:
     try:
-        equation = sanitizer.sanitize_entry(entry)
+        equation = checker.check_entry(entry)
 
         # Organize expr to ease computations
         split_eq = parser.split_equality(equation)
@@ -25,5 +26,5 @@ def run(entry: str, opt_verbose: bool = False) -> int:
         return {"status": "Success", "solutions": result[1]}
 
     except Exception as e:
-        print(f"[-] {e}", file=sys.stderr)
+        print(e, file=sys.stderr)
         return {"status": "Error"}
