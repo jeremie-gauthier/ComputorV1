@@ -1,11 +1,16 @@
 # Polynomial equation solver
 
+## Installation
+
+```git clone https://github.com/jeremie-gauthier/ComputorV1.git```
+
+```shell
+cd ComputorV1
+```
+
 ## Usage
 
-````
-git clone https://github.com/jeremie-gauthier/ComputorV1.git
-cd ComputorV1
-python -m computor <equation> <options?>```
+```python -m computor <equation> [options]```
 
 **Format accepted:**
 
