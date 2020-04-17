@@ -57,5 +57,5 @@ Please note that the default behaviour is to start them all, so you don't need t
 - Intermediate stages can be viewed when reducing the form or computing the delta
 - An irreducible form of the fraction is given whenever it is possible
 - The program includes its own unit tests module
-- Equation can be written in natural form (e.g.: ```5 + 42x = 0``` instead of ```5 * X^0 + 42 * X^1 = 0 * X^0```)
+- Equation can be written in natural form _(```5 + 42x = 0``` instead of ```5 * X^0 + 42 * X^1 = 0 * X^0```)_
 - The reduced form of the equation is given in its natural form
