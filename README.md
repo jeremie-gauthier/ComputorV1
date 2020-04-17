@@ -4,17 +4,17 @@
 
 ## Installation 👨‍💻
 
-```git clone https://github.com/jeremie-gauthier/ComputorV1.git```
+`git clone https://github.com/jeremie-gauthier/ComputorV1.git`
 
 ## Usage ✍️
 
-At the root of the project: ```python -m computor <equation> [options]```
+At the root of the project: `python -m computor <equation> [options]`
 
 **Examples:**
 
-```python -m computor "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1" -v```
+`python -m computor "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1" -v`
 
-```python -m computor "5 + 4x - 9.3x^2 = 1 + x"```
+`python -m computor "5 + 4x - 9.3x^2 = 1 + x"`
 
 ### Accepted Formats
 
@@ -30,21 +30,22 @@ See below the same equation written with the two different syntaxes.
 
 _Default syntax:_
 
-```5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1```
+`5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1`
 
 _Enhanced syntax:_
 
-```5 + 4x - 9.3x^2 = 1 + x```
+`5 + 4x - 9.3x^2 = 1 + x`
 
 ### Unit tests
 
 This program comes with its own unit tests module.
 
-Start these tests is as simple as ```python -m computor.tests [options]```
+Start these tests is as simple as `python -m computor.tests [options]`
 
 **Options:**
 
 The following tests are available:
+
 - format
 - result
 
@@ -57,9 +58,5 @@ Please note that the default behaviour is to start them all, so you don't need t
 - Intermediate stages can be viewed when reducing the form or computing the delta
 - An irreducible form of the fraction is given whenever it is possible
 - The program includes its own unit tests module
-- Equation can be written in natural form _(```5 + 42x = 0``` instead of ```5 * X^0 + 42 * X^1 = 0 * X^0```)_
+- Equation can be written in natural form _(`5 + 42x = 0` instead of `5 * X^0 + 42 * X^1 = 0 * X^0`)_
 - The reduced form of the equation is given in its natural form
-
-## TODO 📋
-
-- Enhance the precision of error messages (syntax error particularly)
