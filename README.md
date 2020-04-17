@@ -4,13 +4,9 @@
 
 ```git clone https://github.com/jeremie-gauthier/ComputorV1.git```
 
-```shell
-cd ComputorV1
-```
-
 ## Usage
 
-```python -m computor <equation> [options]```
+At the root of the project ```python -m computor <equation> [options]```
 
 **Format accepted:**
 
