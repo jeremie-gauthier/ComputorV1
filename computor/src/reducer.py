@@ -39,11 +39,11 @@ def expression(coefs: map, verbose: bool) -> List[float]:
     return (reduced, mid_steps)
 
 
-# Apply this in program
 def fraction(a: TypeNumber, b: TypeNumber) -> TypeRetFraction:
     if a == int(a) and b == int(b):
         divisor = gcd(a, b)
-        if divisor > 1:
-            return (a / divisor, b / divisor)
-        return (a, b)
+        irr_a, irr_b = (a / divisor, b / divisor)
+        if irr_b == 1.0:
+            return None
+        return (irr_a, irr_b)
     return None

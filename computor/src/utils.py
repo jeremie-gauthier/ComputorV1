@@ -1,12 +1,8 @@
 def gcd(a: int, b: int) -> int:
-    if a == b:
-        return a
-    else:
-        if a > b:
-            return gcd(a - b, b)
-        else:
-            return gcd(a, b - a)
+    while b != 0:
+        a, b = b, a % b
+    return a
 
 
-def is_neg(x: float):
+def is_neg(x: float) -> bool:
     return x < 0

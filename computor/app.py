@@ -20,6 +20,10 @@ def run(entry: str, opt_verbose: bool = False) -> int:
         if opt_verbose and mid_steps is not None:
             print("\n".join(mid_steps))
         print("\n".join([verbose.delta(delta), verbose.result(delta, result)]))
+        if opt_verbose:
+            irr_form = verbose.irreducible_fraction(*result[2])
+            if irr_form:
+                print(irr_form)
         return {"status": "Success", "solutions": result[1]}
 
     except Exception as e:

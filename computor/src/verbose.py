@@ -1,5 +1,15 @@
 import re
-from .type_hints import TypeResult
+from .type_hints import TypeResult, TypeRetFraction, TypeIrrFraction
+
+
+def irreducible_fraction(a: TypeRetFraction, b: TypeRetFraction) -> TypeIrrFraction:
+    if a and b:
+        if type(a) == tuple and type(b) == tuple:
+            return f"""Irreducible fraction:
+                \r\tS1 = {a[0]} / {a[1]}
+                \r\tS2 = {b[0]} / {b[1]}"""
+        else:
+            return f"Irreducible fraction:\n\t{a} / {b}"
 
 
 def mid_steps_reducer(left: dict, right: dict):
