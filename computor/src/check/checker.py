@@ -1,7 +1,8 @@
 import regex
+from .error import Error
 
 
-def sanitize_entry(entry: str) -> str:
+def check_entry(entry: str) -> str:
     sanitized = entry.strip()
 
     real = r"\d+(\.\d+)?"
@@ -13,7 +14,9 @@ def sanitize_entry(entry: str) -> str:
     pattern = fr"^(-?{nb}){next_nb}*{eq}-?{nb}{next_nb}*$"
 
     if regex.match(pattern, sanitized) is None:
-        raise Exception("Bad Formatting")
+        err_cls = Error(entry)
+        err_cls.formatting()
+        raise Exception(err_cls.err)
 
     replacements = [
         (r"(?<=\d)[Xx]", " * X"),
