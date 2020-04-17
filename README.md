@@ -8,23 +8,25 @@
 
 At the root of the project: ```python -m computor <equation> [options]```
 
-### Accepted Format:
+### Accepted Formats:
 
 By default, the only pattern accepted is the following:
 
 - {coef} \* X^{pow} (+|- {coef} \* X^{pow} ...) = {coef} \* X^{pow} (+|- {coef} \* X^{pow} ...)
 
-But my program accepts equation written in natural form (See below).
+But my program accepts equation written in natural form.
+
+See below the same equation written with the two different syntaxes.
 
 **e.g.:**
 
 _Default syntax:_
 
-```5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1```
+- ```5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0 + 1 * X^1```
 
 _Enhanced syntax:_
 
-```5 + 4x - 9.3x^2 = 1 + x```
+- ```5 + 4x - 9.3x^2 = 1 + x```
 
 ## Bonus part
 
