@@ -21,9 +21,7 @@ def run(entry: str, opt_verbose: bool = False) -> int:
             print("\n".join(mid_steps))
         print("\n".join([verbose.delta(delta), verbose.result(delta, result)]))
         if opt_verbose:
-            irr_form = verbose.irreducible_fraction(*result[2])
-            if irr_form:
-                print(irr_form)
+            print(verbose.irreducible_fraction(*result[2]), end="")
         return {"status": "Success", "solutions": result[1]}
 
     except Exception as e:
