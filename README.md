@@ -22,7 +22,7 @@ By default, the only pattern accepted is the following:
 
 - {coef} \* X^{pow} (+|- {coef} \* X^{pow} ...) = {coef} \* X^{pow} (+|- {coef} \* X^{pow} ...)
 
-🏆 But my program accepts equation written in natural form.
+🏆 But my program also accepts equation written in natural form.
 
 See below the same equation written with the two different syntaxes.
 
