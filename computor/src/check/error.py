@@ -7,6 +7,7 @@ class Error:
     def __init__(self, entry: str):
         self.err = []
         self.entry = entry
+        self.len_entry = len(entry)
 
     def formatting(self) -> None:
         Parallelize().execute(
@@ -17,26 +18,30 @@ class Error:
                 self._operators,
             ]
         )
+        if not self.err:
+            self.err.append(
+                "\n".join([self.entry, self._wave_all(), "[-] Bad Formatting"])
+            )
 
     def _wave_all(self) -> str:
-        return "^" * len(self.entry)
+        return "^" * self.len_entry
 
     def _wave_at(self, stop: int, wave_len: int = 1) -> str:
         return " " * stop + "^" * wave_len
 
     def _search_pattern(self, pattern: Pattern, err_msg: str) -> bool:
+        err_indicator = [" "] * self.len_entry
         where = re.search(pattern, self.entry)
-        if where:
-            start = where.start()
-            len_err = where.end() - start
+        last_end = 0
+        while where:
+            start, end = where.start(), where.end()
+            for i in range(end - start):
+                err_indicator[last_end + start + i] = "^"
+            last_end += end
+            where = re.search(pattern, self.entry[last_end:])
+        if last_end > 0:
             self.err.append(
-                "\n".join(
-                    [
-                        self.entry,
-                        self._wave_at(start, wave_len=len_err),
-                        f"[-] {err_msg}",
-                    ]
-                )
+                "\n".join([self.entry, "".join(err_indicator), f"[-] {err_msg}"])
             )
 
     def _count_equal_signs(self) -> bool:
@@ -56,15 +61,18 @@ class Error:
         self._search_pattern(double_op, "Operators conflict")
 
         trailing_op = r"[\-\+\=\*]$"
-        self._search_pattern(trailing_op, "Please remove trailing operator")
+        self._search_pattern(trailing_op, "Remove trailing operator")
 
         heading_op = r"^[\+\=\*]"
-        self._search_pattern(heading_op, "Please remove heading operator")
+        self._search_pattern(heading_op, "Remove heading operator")
+
+        missing_op = r"[\dxX]\s+[\dxX]"
+        self._search_pattern(missing_op, "Missing operator ?")
 
     def _forbidden_chars(self) -> bool:
         forbid_chars = r"[^\+\-\=\*\d\sxX\^\.]"
         self._search_pattern(forbid_chars, "Forbidden char")
 
     def _coefficients(self) -> bool:
-        floats = r"[^\d]\.\d|\d\.[^\d]|\d*\.\d+\.\d*"
+        floats = r"[^\d]\.\d|\d?\.[^\d]|\d*\.\d+\.\d*"
         self._search_pattern(floats, "Float malformed")
