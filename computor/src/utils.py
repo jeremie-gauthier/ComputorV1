@@ -1,6 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Any, Callable
-from .type_hints import TypeNumber
+from computor.typings.type_hints import TypeNumber
 from functools import partial
 
 

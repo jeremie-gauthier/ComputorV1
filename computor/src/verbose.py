@@ -1,5 +1,5 @@
 import re
-from .type_hints import TypeResult, TypeRetFraction, TypeCoefs
+from computor.typings.type_hints import TypeResult, TypeRetFraction, TypeCoefs
 
 
 def irreducible_fraction(a: TypeRetFraction, b: TypeRetFraction) -> str:

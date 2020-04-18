@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from .type_hints import TypeNumber, TypeRetFraction
+from computor.typings.type_hints import TypeNumber, TypeRetFraction
 from itertools import takewhile
 from .verbose import mid_steps_reducer
 from .utils import gcd, elegant_number, six_rounded
