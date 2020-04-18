@@ -1,13 +1,14 @@
 from typing import List
 import re
-from .utils import is_neg
+from .utils import is_neg, elegant_number
 from .reducer import fraction
 
 
 def second_degree(coefs: List[float]) -> dict:
     def get_delta(a: float, b: float, c: float) -> float:
         mid_steps = map(
-            lambda s: "Δ = " + s, (f"{b}^2 - 4 * {a} * {c}", f"{b**2} - {4 * a * c}"),
+            lambda s: "Δ = " + s,
+            (f"{b}^2 - 4 * {a} * {c}", f"{b**2} - {4 * a * c}".replace("- -", "+ ")),
         )
         result = b ** 2 - 4 * a * c
         return (result, mid_steps)
@@ -48,7 +49,7 @@ def second_degree(coefs: List[float]) -> dict:
         result = [(pre_s1, pre_s2), (s1, s2), (irr_s1, irr_s2)]
         return result
 
-    c, b, a = [coefs.get(c, 0) for c in range(3)]
+    c, b, a = [elegant_number(coefs.get(c, 0)) for c in range(3)]
     delta, mid_steps = get_delta(a, b, c)
     if delta > 0:
         result = positive_delta()
@@ -60,9 +61,9 @@ def second_degree(coefs: List[float]) -> dict:
 
 
 def first_degree(coefs: List[float]) -> dict:
-    b, a = [coefs.get(c, 0) for c in range(2)]
+    b, a = [elegant_number(coefs.get(c, 0)) for c in range(2)]
     formula = f"{-b if is_neg(b) else f'-{b}'} / {a}"
-    result = (-b / a, None)
+    result = (elegant_number(-b / a), None)
     irreducible = fraction(-b, a)
     return {
         "delta": None,
@@ -72,7 +73,7 @@ def first_degree(coefs: List[float]) -> dict:
 
 
 def zero_degree(coefs: List[float]) -> dict:
-    n = coefs.get(0, 0)
+    n = elegant_number(coefs.get(0, 0))
     observation = f"{n} = 0"
     if n == 0:
         result = f"All reals are possible solutions"

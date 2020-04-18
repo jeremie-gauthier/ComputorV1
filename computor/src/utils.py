@@ -1,5 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Any, Callable
+from .type_hints import TypeNumber
 
 
 class Parallelize:
@@ -23,3 +24,9 @@ def gcd(a: int, b: int) -> int:
 
 def is_neg(x: float) -> bool:
     return x < 0
+
+
+def elegant_number(x: TypeNumber) -> TypeNumber:
+    if int(x) == x:
+        return int(x)
+    return x
