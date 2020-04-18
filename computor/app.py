@@ -16,7 +16,7 @@ def run(entry: str, opt_verbose: bool = False) -> int:
         if opt_verbose:
             print("\n".join(mid_steps))
         degree = parser.get_degree(reduced_form)
-        print("\n".join([verbose.reduced_form(reduced_form), verbose.degree(degree)]))
+        print("\n".join([verbose.reduced(reduced_form), verbose.degree(degree)]))
         delta, result, mid_steps = solver.solver(reduced_form, degree).values()
         if opt_verbose and mid_steps is not None:
             print("\n".join(mid_steps))
