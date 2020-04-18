@@ -2,7 +2,7 @@ from typing import List, Tuple
 from .type_hints import TypeNumber, TypeRetFraction
 from itertools import takewhile
 from .verbose import mid_steps_reducer
-from .utils import gcd, elegant_number
+from .utils import gcd, elegant_number, six_rounded
 
 
 def merge_dict_coefs(dicts: List[dict], verbose: bool) -> dict:
@@ -13,12 +13,13 @@ def merge_dict_coefs(dicts: List[dict], verbose: bool) -> dict:
         mid_steps.append(mid_steps_reducer(new_dict, right_dict))
     for key, value in dicts[1].items():
         if key in new_dict:
-            new_dict[key] -= value
+            new_dict[key] = six_rounded(new_dict[key] - value)
         else:
-            new_dict[key] = -value
+            new_dict[key] = six_rounded(-value)
         if verbose:
             right_dict.pop(key, None)
             mid_steps.append(mid_steps_reducer(new_dict, right_dict))
+
     return (new_dict, mid_steps)
 
 

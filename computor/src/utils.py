@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Any, Callable
 from .type_hints import TypeNumber
+from functools import partial
 
 
 class Parallelize:
@@ -29,3 +30,6 @@ def elegant_number(x: TypeNumber) -> TypeNumber:
     if int(x) == x:
         return int(x)
     return x
+
+
+six_rounded = partial(round, ndigits=6)

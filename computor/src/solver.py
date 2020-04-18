@@ -1,6 +1,6 @@
 from typing import List
 import re
-from .utils import is_neg, elegant_number
+from .utils import is_neg, elegant_number, six_rounded
 from .reducer import fraction
 
 
@@ -10,13 +10,13 @@ def second_degree(coefs: List[float]) -> dict:
             lambda s: "Δ = " + s,
             (f"{b}^2 - 4 * {a} * {c}", f"{b**2} - {4 * a * c}".replace("- -", "+ ")),
         )
-        result = b ** 2 - 4 * a * c
+        result = six_rounded(b ** 2 - 4 * a * c)
         return (result, mid_steps)
 
     def negative_delta():
         # Complex solutions
-        imaginary = ((delta * -1) ** 0.5) / (2 * a)
-        real = -b / (2 * a)
+        imaginary = six_rounded(((delta * -1) ** 0.5) / (2 * a))
+        real = six_rounded(-b / (2 * a))
         result = [
             (
                 f"( {-b if is_neg(b) else f'-{b}'} + i√({-delta}) ) / {2 * a}",
@@ -34,7 +34,7 @@ def second_degree(coefs: List[float]) -> dict:
         irreducible = fraction(-b, 2 * a)
         result = [
             (f"{-b if is_neg(b) else f'-{b}'} / ( 2 * {a} )", None),
-            (-b / (2 * a), None),
+            (six_rounded(-b / (2 * a)), None),
             irreducible,
         ]
         return result
