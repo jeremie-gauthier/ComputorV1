@@ -1,5 +1,5 @@
 import re
-from .type_hints import TypeResult, TypeRetFraction
+from .type_hints import TypeResult, TypeRetFraction, TypeCoefs
 
 
 def irreducible_fraction(a: TypeRetFraction, b: TypeRetFraction) -> str:
@@ -13,7 +13,7 @@ def irreducible_fraction(a: TypeRetFraction, b: TypeRetFraction) -> str:
     return ""
 
 
-def mid_steps_reducer(left: dict, right: dict):
+def mid_steps_reducer(left: TypeCoefs, right: TypeCoefs):
     left_string = natural_form(reduce_form(left)) if left else "0"
     right_string = natural_form(reduce_form(right)) if right else "0"
     return f"Reduced form: {left_string} = {right_string}"
@@ -23,7 +23,7 @@ def degree(degree: int) -> str:
     return f"Polynomial degree: {degree}"
 
 
-def natural_form(reduced: list) -> str:
+def natural_form(reduced: str) -> str:
     replacements = [
         (r"\.0 ", " "),
         (r"\.0X", "X"),
@@ -36,7 +36,7 @@ def natural_form(reduced: list) -> str:
     return reduced
 
 
-def reduce_form(reduced: list) -> str:
+def reduce_form(reduced: TypeCoefs) -> str:
     len_reduced = len(reduced)
     items = sorted(reduced.items(), reverse=True)
     string_reduced = " + ".join(
@@ -49,7 +49,7 @@ def reduce_form(reduced: list) -> str:
     return string_reduced
 
 
-def reduced_form(reduced: list) -> str:
+def reduced(reduced: TypeCoefs) -> str:
     string_reduced = natural_form(reduce_form(reduced))
     return f"Reduced form: {string_reduced} = 0"
 

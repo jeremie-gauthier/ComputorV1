@@ -1,4 +1,6 @@
-from typing import Union, Tuple
+from typing import Union, Tuple, Dict
+
+TypeCoefs = Dict[str, float]
 
 TypeNumber = Union[int, float]
 
