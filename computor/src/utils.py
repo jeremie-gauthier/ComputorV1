@@ -7,7 +7,7 @@ class Parallelize:
         self.executor = ThreadPoolExecutor(max_workers=4)
         self.running_tasks = []
 
-    def execute(self, tasks: List[Callable]):
+    def execute(self, tasks: List[Callable]) -> None:
         for task in tasks:
             self.running_tasks.append(self.executor.submit(task))
 
