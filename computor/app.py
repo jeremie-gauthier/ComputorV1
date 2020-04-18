@@ -18,11 +18,14 @@ def run(entry: str, opt_verbose: bool = False) -> int:
         degree = parser.get_degree(reduced_form)
         print("\n".join([verbose.reduced(reduced_form), verbose.degree(degree)]))
         delta, result, mid_steps = solver.solver(reduced_form, degree).values()
+
+        # Printing results
         if opt_verbose and mid_steps is not None:
             print("\n".join(mid_steps))
         print("\n".join([verbose.delta(delta), verbose.result(delta, result)]))
         if opt_verbose and result[2]:
             print(verbose.irreducible_fraction(*result[2]), end="")
+
         return {"status": "Success", "solutions": result[1]}
 
     except Exception as e:
