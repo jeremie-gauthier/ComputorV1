@@ -2,7 +2,12 @@
 
 ![Alt Text](https://media2.giphy.com/media/9cpXRPjZuo6pq/giphy.gif?cid=ecf05e474ac62853aba498f4c88ac857ff07c383d3b2efd0&rid=giphy.gif)
 
-## Installation 👨‍💻
+## ⚙️ Requirements 
+
+- Python 3.6 (or higher)
+
+
+## 👨‍💻 Installation 
 
 `git clone https://github.com/jeremie-gauthier/ComputorV1.git`
 
@@ -53,10 +58,11 @@ You can enumerate them in options to only start the desired ones.
 
 Please note that the default behaviour is to start them all, so you don't need to specify all if you want all tests to execute.
 
-## Bonus part 🚀
+## 🚀 Bonus part 
 
 - Intermediate stages can be viewed when reducing the form or computing the delta
 - An irreducible form of the fraction is given whenever it is possible
 - The program includes its own unit tests module
 - Equation can be written in natural form _(`5 + 42x = 0` instead of `5 * X^0 + 42 * X^1 = 0 * X^0`)_
 - The reduced form of the equation is given in its natural form
+- Nice feedbacks in case of syntax error, targeting the error the way compilators do
