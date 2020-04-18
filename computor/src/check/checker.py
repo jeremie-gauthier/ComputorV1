@@ -16,7 +16,7 @@ def check_entry(entry: str) -> str:
     if regex.match(pattern, sanitized) is None:
         err_cls = Error(entry)
         err_cls.formatting()
-        raise Exception(err_cls.err)
+        raise Exception("\n\n".join(err_cls.err))
 
     replacements = [
         (r"(?<=\d)[Xx]", " * X"),
