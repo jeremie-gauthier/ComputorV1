@@ -11,7 +11,7 @@
 
 `git clone https://github.com/jeremie-gauthier/ComputorV1.git`
 
-## Usage ✍️
+## ✍️ Usage 
 
 At the root of the project: `python -m computor <equation> [options]`
 
@@ -40,6 +40,12 @@ _Default syntax:_
 _Enhanced syntax:_
 
 `5 + 4x - 9.3x^2 = 1 + x`
+
+### Options
+
+Available options:
+
+- ```-v``` Get intermediate stages in the resolution of the equation
 
 ### Unit tests
 
