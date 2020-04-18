@@ -62,7 +62,7 @@ The following tests are available:
 
 You can enumerate them in options to only start the desired ones.
 
-Please note that the default behaviour is to start them all, so you don't need to specify all if you want all tests to execute.
+⚠️ Please note that the default behaviour is to start them all, so you don't need to specify all if you want all tests to execute.
 
 ## 🚀 Bonus part 
 
