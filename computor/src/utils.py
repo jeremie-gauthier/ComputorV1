@@ -9,8 +9,7 @@ class Parallelize:
         self.running_tasks = []
 
     def execute(self, tasks: List[Callable]) -> None:
-        for task in tasks:
-            self.running_tasks.append(self.executor.submit(task))
+        self.running_tasks = [self.executor.submit(task) for task in tasks]
 
     def get_results(self) -> List[Any]:
         return [task.result() for task in self.running_tasks]
