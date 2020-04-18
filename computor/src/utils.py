@@ -4,8 +4,8 @@ from .type_hints import TypeNumber
 
 
 class Parallelize:
-    def __init__(self):
-        self.executor = ThreadPoolExecutor(max_workers=4)
+    def __init__(self, max_workers=None):
+        self.executor = ThreadPoolExecutor(max_workers=max_workers)
         self.running_tasks = []
 
     def execute(self, tasks: List[Callable]) -> None:
