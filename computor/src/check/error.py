@@ -16,6 +16,7 @@ class Error:
                 self._forbidden_chars,
                 self._coefficients,
                 self._operators,
+                self._powers,
             ]
         )
         if not self.err:
@@ -44,7 +45,7 @@ class Error:
                 "\n".join([self.entry, "".join(err_indicator), f"[-] {err_msg}"])
             )
 
-    def _count_equal_signs(self) -> bool:
+    def _count_equal_signs(self) -> None:
         nb_eq = self.entry.count("=")
         if nb_eq > 1:
             self._search_pattern(r"=", "There are two or much equal sign")
@@ -69,10 +70,14 @@ class Error:
         missing_op = r"[\dxX]\s+[\dxX]"
         self._search_pattern(missing_op, "Missing operator ?")
 
-    def _forbidden_chars(self) -> bool:
+    def _forbidden_chars(self) -> None:
         forbid_chars = r"[^\+\-\=\*\d\sxX\^\.]"
         self._search_pattern(forbid_chars, "Forbidden char")
 
-    def _coefficients(self) -> bool:
+    def _coefficients(self) -> None:
         floats = r"[^\d]\.\d|\d?\.[^\d]|\d*\.\d+\.\d*"
         self._search_pattern(floats, "Float malformed")
+
+    def _powers(self) -> None:
+        missing_symbol = r"[xX]\d"
+        self._search_pattern(missing_symbol, "Power symbol is missing")
