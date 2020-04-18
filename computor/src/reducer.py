@@ -2,7 +2,7 @@ from typing import List, Tuple
 from .type_hints import TypeNumber, TypeRetFraction
 from itertools import takewhile
 from .verbose import mid_steps_reducer
-from .utils import gcd
+from .utils import gcd, elegant_number
 
 
 def merge_dict_coefs(dicts: List[dict], verbose: bool) -> dict:
@@ -45,5 +45,5 @@ def fraction(a: TypeNumber, b: TypeNumber) -> TypeRetFraction:
         irr_a, irr_b = (a / divisor, b / divisor)
         if irr_b == 1.0:
             return None
-        return (irr_a, irr_b)
+        return map(elegant_number, (irr_a, irr_b))
     return None
