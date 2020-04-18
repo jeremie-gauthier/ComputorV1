@@ -21,7 +21,7 @@ def run(entry: str, opt_verbose: bool = False) -> int:
         if opt_verbose and mid_steps is not None:
             print("\n".join(mid_steps))
         print("\n".join([verbose.delta(delta), verbose.result(delta, result)]))
-        if opt_verbose:
+        if opt_verbose and result[2]:
             print(verbose.irreducible_fraction(*result[2]), end="")
         return {"status": "Success", "solutions": result[1]}
 
