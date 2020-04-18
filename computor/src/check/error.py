@@ -10,6 +10,9 @@ class Error:
         self.len_entry = len(entry)
 
     def formatting(self) -> None:
+        if not self.entry.strip():
+            self.err.append("[-] Empty string")
+            return
         Parallelize().execute(
             [
                 self._count_equal_signs,
