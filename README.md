@@ -5,7 +5,7 @@
 ## ⚙️ Requirements 
 
 - Python 3.6 (or higher)
-
+- [regex](https://pypi.org/project/regex/) package (pip install regex)
 
 ## 👨‍💻 Installation 
 
