@@ -13,7 +13,7 @@
 
 ## ✍️ Usage 
 
-At the root of the project: `python -m computor <equation> [options]`
+At the root of the project: `python3 -m computor <equation> [options]`
 
 **Examples:**
 
